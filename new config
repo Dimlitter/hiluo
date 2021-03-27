@@ -3,7 +3,7 @@
 {
     "version": "1.2.1", // 配置文件版本,严禁修改
     "http_header": {    // http头部，访问B站时使用  注:User-Agent建议改为常用的浏览器ua(下面是google浏览器)，其他的不改
-    	"User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.108 Safari/537.36",
+    	"User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/49.0.2623.112 Safari/537.36",
     	"Referer": "https://www.bilibili.com/",
     	"Connection": "keep-alive"
     },
@@ -21,20 +21,20 @@
         "group_sign_task": true,   // 任务:应援团签到，值为true或false分别代表开启和关闭
         "xliveSign_task": true,    // 任务:直播签到，值为true或false分别代表开启和关闭
         "xlive_bag_send_task": {   // 任务:送出即将到期的直播间背包里的礼物，值为true或false分别代表开启和关闭，下面为本功能详细配置
-            "enable": true,       //任务开关，值为true或false分别代表开启和关闭
+            "enable": false,       //任务开关，值为true或false分别代表开启和关闭
             "room_id": 0,         // 值为整数，送礼物的直播间，0为随机取直播间
             "expire": 172800      // 值为整数，距离过期的时间(单位为秒),172800为两天，若礼物将在这个时间内过期则会被随机送出
         },
         "xlive_heartbeat_task": {     // 任务:发送直播心跳，可用于获得小心心(每5分钟1个)和大老爷在线时长加经验(费时，不建议在云函数使用)
-            "enable": true,           // 任务开关，值为true或false分别代表开启和关闭
-            "medal_room": true,       // 在所有拥有粉丝牌的直播间心跳，值为true或false分别代表开启和关闭，只有在有粉丝牌的房间心跳才能获取小心心(时间累加多个房间,没有开播也累加)
+            "enable": false,           // 任务开关，值为true或false分别代表开启和关闭
+            "medal_room": false,       // 在所有拥有粉丝牌的直播间心跳，值为true或false分别代表开启和关闭，只有在有粉丝牌的房间心跳才能获取小心心(时间累加多个房间,没有开播也累加)
             "live_status": [0, 1, 2], // 只在指定状态的直播间心跳，值为整数数组，0为未开播，1为正在直播，2为轮播
             "room_id": [],            // 直播间id，值为整数数组，除了上面的拥有粉丝牌的直播间还可以在其他直播间心跳
             "send_msg": "",           // 向所有有粉丝牌的房间发送消息(作用是点亮粉丝牌和增加其密度)，值为字符串，为空字符串则不发送
             "timeout": 12,            // 心跳分钟数，值为数字(单位分钟,允许小数),心跳的时间，达到时间退出
         },
         "xlive_anchor_task": {   // 任务:参与直播天选时刻，下面为本功能详细配置
-            "enable": true,          //任务开关，值为true或false分别代表开启和关闭
+            "enable": false,          //任务开关，值为true或false分别代表开启和关闭
             "anchor_type": [[0, 0], [1, 0]], //参与条件，值为n*2维整数数组，详见下方
                                              /*
                                              [0, 0] 无  [1, 0] 关注主播
@@ -102,11 +102,11 @@
             }
        /*-----------------------------end---------------------------------------------------- */
         },
-        "watch_task": true,       // 任务:模拟观看一个随机视频(加经验值，会留下观看历史记录)，值为true或false分别代表开启和关闭，删除75行(即本行)可关闭本任务
-        "share_task": true,       // 任务:模拟分享一个随机视频(加经验值，并不会真的分享)，值为true或false分别代表开启和关闭，删除76行(即本行)可关闭本任务
-        "silver2coin_task": true, // 任务:银瓜子兑换硬币，值为true或false分别代表开启和关闭，删除77行(即本行)可关闭本任务
+        "watch_task": false,       // 任务:模拟观看一个随机视频(加经验值，会留下观看历史记录)，值为true或false分别代表开启和关闭，删除75行(即本行)可关闭本任务
+        "share_task": false,       // 任务:模拟分享一个随机视频(加经验值，并不会真的分享)，值为true或false分别代表开启和关闭，删除76行(即本行)可关闭本任务
+        "silver2coin_task": false, // 任务:银瓜子兑换硬币，值为true或false分别代表开启和关闭，删除77行(即本行)可关闭本任务
         "lottery_task": {         // 任务:动态抽奖转发评论点赞
-            "enable": true,       //任务开关，值为true或false分别代表开启和关闭
+            "enable": false,       //任务开关，值为true或false分别代表开启和关闭
             "reply": ["从未中奖，从未放弃[doge]", "来啦"],  // 回复原动态评论，值为字符串数组，每次转发时会随机抽一个
             "repost": ["从未中奖，从未放弃[doge]", "支持支持"], // 转到自己动态的评论，值为字符串数组，每次转发时会随机抽一个
                                                              // 关键字匹配转发，值为字符串数组，支持正则表达式匹配，匹配上关键字的动态才转发
@@ -141,7 +141,7 @@
             "black_keywords": ["欢迎", "感谢", "关注"] //过滤关键字，值为字符串数组
         },
         "clean_dynamic_task": {   // 任务:清理自己的动态，包括过期抽奖，失效动态
-            "enable": true,      // 任务开关，值为true或false分别代表开启和关闭
+            "enable": false,      // 任务开关，值为true或false分别代表开启和关闭
             "black_keywords": [], // 黑名单关键字，值为字符串数组，出现关键字的动态会被清除
             "unfollowed": false,  // 删除已转发的但是没有关注的up主的动态，值为true或false分别代表删除和忽略
             "days_range": [7, 30] // 限制删除动态的时间区间，值为二维整数数组(单位天)，这里表示只对7天之前30天以内的动态执行清理，天数按执行当天24点向前计算
@@ -172,7 +172,7 @@
             "timeout": 2700         // 任务超时，值为数字(单位秒)，超过时间仍没有达到投票次数则退出任务
         },
         "activity_task": {      // 任务:参与B站转盘抽奖活动
-            "enable": true,     //  任务开关，值为true或false分别代表开启和关闭
+            "enable": false,     //  任务开关，值为true或false分别代表开启和关闭
             "path": "./config/activities.json", // B站转盘抽奖列表文件，值为字符串，小数点代表当前目录，本地运行也可指定绝对目录
             "activities": []                    // B站转盘抽奖列表，值为抽奖活动数组，目前这个数据被放到了转盘抽奖列表文件里面，也可以放在这里而不需要额外指定列表文件
         }
